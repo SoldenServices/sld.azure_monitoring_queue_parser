@@ -30,7 +30,7 @@ class QueueMonitor:
         self._warn_threshold = None
         self._crit_threshold = None
         self.essential_functions = essential_functions
-        self.critical_function = critical_functions
+        self.critical_functions = critical_functions
         self.warn_threshold = warn_threshold
         self.crit_threshold = crit_threshold
 
