@@ -1,4 +1,9 @@
-from typing import Optional, Union, List
+from typing import Optional, Union, List, Tuple, Iterable
+
+
+def parse_threshold(value: Union[str, Iterable]) -> Tuple:
+    _value = tuple([int(x) for x in value.split(",")])
+    return _value[0], _value[1]
 
 
 class QueueMonitor:
@@ -34,7 +39,7 @@ class QueueMonitor:
         if value is None:
             self._warn_threshold = self.default_warn_threshold
         else:
-            self._warn_threshold = value
+            self._warn_threshold = parse_threshold(value)
 
     @property
     def crit_threshold(self):
