@@ -1,3 +1,4 @@
+from azure.storage.queue import QueueClient
 from typing import Optional, Union, List, Tuple, Iterable
 
 
@@ -16,8 +17,8 @@ class QueueMonitor:
 
     def __init__(
             self,
-            queue_name,
             conn_str,
+            queue_name,
             min_message_cnt: int = 1,
             warn_threshold: Optional[Union[str, List]] = None,
             crit_threshold: Optional[Union[str, List]] = None,
@@ -33,6 +34,8 @@ class QueueMonitor:
         self.critical_functions = critical_functions
         self.warn_threshold = warn_threshold
         self.crit_threshold = crit_threshold
+        self._queue_client = None
+        self.set_queue_client()
 
     @property
     def warn_threshold(self):
@@ -55,3 +58,9 @@ class QueueMonitor:
             self._crit_threshold = self.default_crit_threshold
         else:
             self._crit_threshold = parse_threshold(value)
+
+    def set_queue_client(self):
+        self._queue_client = QueueClient.from_connection_string(
+            self.conn_str,
+            self.queue_name
+        )
