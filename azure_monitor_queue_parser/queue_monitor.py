@@ -23,6 +23,7 @@ class QueueMonitor:
         self.essential_functions = essential_functions
         self.critical_function = critical_functions
         self.warn_threshold = warn_threshold
+        self.crit_threshold = crit_threshold
 
     @property
     def warn_threshold(self):
@@ -34,3 +35,14 @@ class QueueMonitor:
             self._warn_threshold = self.default_warn_threshold
         else:
             self._warn_threshold = value
+
+    @property
+    def crit_threshold(self):
+        return self._crit_threshold
+
+    @crit_threshold.setter
+    def crit_threshold(self, value):
+        if value is None:
+            self._crit_threshold = self.default_crit_threshold
+        else:
+            self._crit_threshold = value
