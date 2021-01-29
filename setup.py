@@ -40,7 +40,7 @@ setup(
     packages=find_packages(include=['azure_monitoring_queue_parser', 'azure_monitoring_queue_parser.*']),
     test_suite='tests',
     tests_require=test_requirements,
-    url='https://github.com/SoldenServices/azure_monitoring_queue_parser',
+    url='https://github.com/SoldenServices/sld.azure_monitoring_queue_parser',
     version='0.0.1',
     zip_safe=False,
 )
