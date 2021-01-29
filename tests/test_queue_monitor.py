@@ -64,3 +64,34 @@ def test_parse_threshold_return_tuple():
 def test_parse_threshold_return_value_from_str(given_value, expected_value):
     _value = parse_threshold(given_value)
     assert _value == expected_value
+
+
+def test_queue_monitor_warn_threshold_is_iterable():
+    queue_monitor = QueueMonitor("foo", "bar", warn_threshold=[5, 80])
+    assert queue_monitor.warn_threshold == (5, 80)
+
+
+@pytest.mark.parametrize(
+    "given_value, expected_value",
+    [
+        ([2, 99], (2, 99)),
+        (["2", "99"], (2, 99)),
+        ((2, 99), (2, 99)),
+        (("2", "99"), (2, 99)),
+        ((" 2 ", " 99 "), (2, 99)),
+        ((2, 98.9), (2, 98)),
+    ]
+)
+def test_parse_threshold_return_value_from_iterable(given_value, expected_value):
+    _value = parse_threshold(given_value)
+    assert _value == expected_value
+
+
+def test_queue_monitor_crit_threshold_is_str():
+    queue_monitor = QueueMonitor("foo", "bar", crit_threshold="5, 80")
+    assert queue_monitor.crit_threshold == (5, 80)
+
+
+def test_queue_monitor_crit_threshold_is_iterable():
+    queue_monitor = QueueMonitor("foo", "bar", crit_threshold=[5, 80])
+    assert queue_monitor.crit_threshold == (5, 80)

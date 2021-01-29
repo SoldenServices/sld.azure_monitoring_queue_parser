@@ -2,7 +2,11 @@ from typing import Optional, Union, List, Tuple, Iterable
 
 
 def parse_threshold(value: Union[str, Iterable]) -> Tuple:
-    _value = tuple([int(x) for x in value.split(",")])
+    _value = None
+    if isinstance(value, str):
+        _value = tuple([int(x) for x in value.split(",")])
+    else:
+        _value = tuple(int(x) for x in value)
     return _value[0], _value[1]
 
 
@@ -50,4 +54,4 @@ class QueueMonitor:
         if value is None:
             self._crit_threshold = self.default_crit_threshold
         else:
-            self._crit_threshold = value
+            self._crit_threshold = parse_threshold(value)
